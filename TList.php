@@ -8,8 +8,15 @@
         function __construct() {
             $this->sizeList = 0;
             $this->arrTickets = [];
-
-            $file = fopen("db.txt", 'r') or die("can't read open file");
+            
+            // Если файл существует
+            if (file_exists($_SESSION['UserLogin'] . ".txt")) {
+                $file = fopen($_SESSION['UserLogin'] . ".txt", 'r') or die("can't read open file");    
+            }
+            // Иначе создать такой чистый файл
+            else {
+                $file = fopen($_SESSION['UserLogin'] . ".txt", 'w') or die("can't read open file");
+            }
             while(!feof($file)) {
                 $textTicket = fgets($file);
                 if ($textTicket == "") break;
